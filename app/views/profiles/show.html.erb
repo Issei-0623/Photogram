@@ -11,9 +11,9 @@
     <p>プロフィール画像</p>
 
     <% if @user.avatar.attached? %>
-      <%= image_tag @user.avatar, width: 120 %>
+      <%= image_tag @user.avatar, class: "profile-avatar" %>
     <% else %>
-      <%= image_tag "/app/assets/images/default_avatar.png", width: 120 %>
+      <%= image_tag "default_avatar.png", class: "profile-avatar" %>
     <% end %>
   </div>
 
