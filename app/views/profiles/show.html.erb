@@ -1,7 +1,6 @@
 <h1>プロフィール</h1>
 
 <%= form_with model: @user, url: profile_path, method: :patch, local: true do |f| %>
-
   <div>
     <p>アカウント名</p>
     <%= f.text_field :account_name %>
@@ -10,24 +9,35 @@
   <div>
     <p>プロフィール画像</p>
 
-    <% if @user.avatar.attached? %>
-      <%= image_tag @user.avatar, class: "profile-avatar" %>
-    <% else %>
-      <%= image_tag "default_avatar.png", class: "profile-avatar" %>
-    <% end %>
-  </div>
+    <div data-controller="avatar">
+      <%= image_tag(
+        @user.avatar.attached? ?
+        @user.avatar.variant(resize_to_fill: [100, 100]) :
+        "default_avatar.png",
+        class: "profile-avatar",
+        data: {
+          action: "click->avatar#select",
+          avatar_target: "preview",
+          default_avatar_url: asset_path("default_avatar.png")
+        }
+      ) %>
 
-  <div>
-    <%= f.file_field :avatar, accept: "image/*" %>
-  </div>
+      <%= f.file_field :avatar,
+        accept: "image/*",
+        style: "display: none;",
+        data: { avatar_target: "input", action: "change->avatar#preview" } %>
 
-  <div>
-    <%= check_box_tag :remove_avatar, "1" %>
-    <%= label_tag :remove_avatar, "現在のプロフィール画像を削除する" %>
+      <%= hidden_field_tag :remove_avatar, "0", data: { avatar_target: "removeFlag" } %>
+
+      <div>
+        <button type="button" data-action="click->avatar#reset">
+          現在のプロフィール画像を削除する
+        </button>
+      </div>
+    </div>
   </div>
 
   <div>
     <%= f.submit "保存する" %>
   </div>
-
 <% end %>
