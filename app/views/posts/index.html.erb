@@ -1,0 +1,11 @@
+<h1>投稿一覧</h1>
+
+<% @posts.each do |post| %>
+  <p><%= post.content %></p>
+
+  <% if post.images.attached? %>
+    <% post.images.each do |image| %>
+      <%= image_tag image.variant(resize_to_fill: [100, 100]).processed %>
+    <% end %>
+  <% end %>
+<% end %>
