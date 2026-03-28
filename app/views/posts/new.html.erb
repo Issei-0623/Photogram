@@ -4,6 +4,10 @@
   <div>
     <%= f.text_area :content %>
   </div>
+  
+  <div>
+    <%= f.file_field :images, multiple: true %>
+  </div>
 
   <div>
     <%= f.submit "投稿" %>
