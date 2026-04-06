@@ -1,0 +1,14 @@
+<h1>投稿詳細</h1>
+
+  <%= render 'commons/post', post: @post %>
+    
+<% share_text = "#{@post.content}\n#Photogram" %>
+<% share_url = post_url(@post) %>
+
+<%= link_to "Xでシェアする",
+  "https://twitter.com/intent/tweet?text=#{CGI.escape(share_text)}&url=#{CGI.escape(share_url)}",
+  target: "_blank",
+  rel: "noopener",
+  class: "x-share-button" %>
+
+<%= link_to '投稿一覧', posts_path %>
