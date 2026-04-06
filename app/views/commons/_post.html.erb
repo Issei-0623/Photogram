@@ -1,0 +1,17 @@
+<% if post.user.avatar.attached? %>
+  <%= image_tag post.user.avatar.variant(resize_to_fill: [50, 50]).processed,
+      class: "profile-avatar" %>
+<% else %>
+  <%= image_tag "default_avatar.png",
+      class: "profile-avatar" %>
+<% end %>
+
+<p><%= post.user.account_name %></p>
+<p><%= post.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+<p><%= post.content %></p>
+
+<% if post.images.attached? %>
+  <% post.images.each do |image| %>
+    <%= image_tag image.variant(resize_to_fill: [100, 100]).processed %>
+  <% end %>
+<% end %>

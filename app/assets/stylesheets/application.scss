@@ -1,10 +1,8 @@
 // Sassy
 /* app/assets/stylesheets/application.scss */
+// @import "based/body";
 
-.profile-avatar {
-  width: 100px;
-  height: 100px;
-  border-radius: 50%;
-  object-fit: cover;
-  cursor: pointer;
-}
+
+@import "pages/profiles";
+
+@import "shared/buttons";
