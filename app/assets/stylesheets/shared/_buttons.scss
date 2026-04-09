@@ -13,3 +13,25 @@
 .x-share-button:hover {
   opacity: 0.85;
 }
+
+.like-button {
+  border: none;
+  background: transparent;
+  padding: 0;
+  cursor: pointer;
+}
+
+.like-button:hover {
+  opacity: 0.8;
+}
+
+.like-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.like-count {
+  font-size: 14px;
+  font-weight: bold;
+}

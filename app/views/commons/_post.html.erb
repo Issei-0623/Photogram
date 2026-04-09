@@ -15,3 +15,5 @@
     <%= image_tag image.variant(resize_to_fill: [100, 100]).processed %>
   <% end %>
 <% end %>
+
+<%= render 'likes/like_button', post: post %>

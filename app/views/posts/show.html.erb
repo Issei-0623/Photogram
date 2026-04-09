@@ -11,14 +11,4 @@
   rel: "noopener",
   class: "x-share-button" %>
 
-  <% if current_user.likes.exists?(post_id: @post.id) %>
-    <%= button_to post_like_path(@post), method: :delete, class: "like-button" do %>
-        <%= image_tag "heart-active.svg", size: "32x32" %>
-    <% end %>
-  <% else %>
-    <%= button_to post_like_path(@post), method: :post, class: "like-button" do %>
-        <%= image_tag "heart.svg", size: "32x32" %>
-    <% end %>
-  <% end %>
-
 <%= link_to '投稿一覧', posts_path %>
