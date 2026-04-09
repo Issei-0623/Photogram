@@ -1,0 +1,13 @@
+<div class="like-wrapper">
+  <% if current_user.likes.exists?(post_id: post.id) %>
+    <%= button_to post_like_path(post), method: :delete, class: "like-button" do %>
+      <%= image_tag "heart-active.svg", size: "28x28" %>
+    <% end %>
+  <% else %>
+    <%= button_to post_like_path(post), method: :post, class: "like-button" do %>
+      <%= image_tag "heart.svg", size: "28x28" %>
+    <% end %>
+  <% end %>
+
+  <span class="like-count"><%= post.likes.count %></span>
+</div>
