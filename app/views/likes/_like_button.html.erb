@@ -1,4 +1,4 @@
-<div class="like-wrapper">
+<%= turbo_frame_tag dom_id(post, :like_button) do %>
   <% if current_user.likes.exists?(post_id: post.id) %>
     <%= button_to post_like_path(post), method: :delete, class: "like-button" do %>
       <%= image_tag "heart-active.svg", size: "28x28" %>
@@ -8,6 +8,4 @@
       <%= image_tag "heart.svg", size: "28x28" %>
     <% end %>
   <% end %>
-
-  <span class="like-count"><%= post.likes.count %></span>
-</div>
+<% end %>
