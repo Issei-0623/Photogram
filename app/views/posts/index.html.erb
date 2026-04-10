@@ -2,10 +2,8 @@
 
 <% @posts.each do |post| %>
   <div class="post-card">
-    <%= link_to post_path(post), class: "post-main-link" do %>
-      <%= render 'commons/post', post: post %>
-    <% end %>
+    <%= render "commons/post", post: post %>
   </div>
 <% end %>
 
-<%= link_to '新投稿', new_post_path %>
+<%= link_to "新投稿", new_post_path %>
