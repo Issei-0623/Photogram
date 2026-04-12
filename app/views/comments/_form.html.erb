@@ -1,0 +1,6 @@
+<%= turbo_frame_tag "new_comment" do %>
+  <%= form_with model: [post, Comment.new] do |f| %>
+    <%= f.text_field :content, placeholder: "コメントを書く..." %>
+    <%= f.submit "送信" %>
+  <% end %>
+<% end %>

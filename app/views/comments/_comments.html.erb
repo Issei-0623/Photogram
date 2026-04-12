@@ -1,0 +1,10 @@
+<div id="comments">
+  <% comments.each do |comment| %>
+    <div class="comment-item">
+      <%= render "commons/avatar", user: comment.user %>
+
+      <p><strong><%= comment.user.account_name %></strong></p>
+      <p><%= comment.content %></p>
+    </div>
+  <% end %>
+</div>

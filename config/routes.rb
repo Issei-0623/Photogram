@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   
   resources :posts, only: [:index, :new, :create, :show] do
     resource :like, only: [:create, :destroy]
+    resources :comments, only: [:create]
   end
 
   # Render dynamic PWA files from app/views/pwa/* (remember to link manifest in application.html.erb)
