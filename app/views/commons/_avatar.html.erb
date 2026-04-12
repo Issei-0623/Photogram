@@ -1,0 +1,7 @@
+<% if user.avatar.attached? %>
+  <%= image_tag user.avatar.variant(resize_to_fill: [50, 50]).processed,
+      class: "profile-avatar" %>
+<% else %>
+  <%= image_tag "default_avatar.png",
+      class: "profile-avatar" %>
+<% end %>

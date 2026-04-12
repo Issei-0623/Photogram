@@ -11,4 +11,10 @@
   rel: "noopener",
   class: "x-share-button" %>
 
+<h2>コメント</h2>
+<div id="comment_section">
+  <%= render "comments/comments", comments: @post.comments.includes(:user).order(created_at: :desc) %>
+</div>
+
+<%= render "comments/form", post: @post %>
 <%= link_to '投稿一覧', posts_path %>
