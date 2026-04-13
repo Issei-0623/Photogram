@@ -63,6 +63,8 @@ group :development do
   gem "annotate" # モデルファイルに schema コメントを自動追記
   gem "better_errors" # エラー画面の改善
   gem "binding_of_caller" # better_errorsと一緒
+
+  gem "letter_opener_web", "~> 3.0" # ブラウザ上でメール内容を確認できるようにする
 end
 
 group :test do
