@@ -7,6 +7,11 @@ class CommentsController < ApplicationController
     @comment.post = @post
 
     if @comment.save
+      mentioned_name = @comment.content[/@(\w+)/, 1]
+      target_user = User.find_by(account_name: mentioned_name)
+      
+      CommentMailer.mention_notification(target_user, @comment).deliver_now if target_user.present?
+
       @comments = @post.comments.includes(:user).order(created_at: :desc)
 
       respond_to do |format|
