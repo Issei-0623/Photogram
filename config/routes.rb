@@ -11,6 +11,12 @@ Rails.application.routes.draw do
     resources :comments, only: [:create]
   end
 
-  resources :users, only: [:show, :update]
+  resources :users, only: %i[show update] do
+    member do
+      get :following
+      get :followers
+    end
+  end
+
   resources :relationships, only: [:create, :destroy]
 end

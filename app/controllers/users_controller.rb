@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_user, only: [:show, :update]
+  before_action :set_user, only: %i[show update following followers]
   before_action :ensure_correct_user, only: [:update]
 
   def show
@@ -18,6 +18,16 @@ class UsersController < ApplicationController
       @posts = @user.posts.order(created_at: :desc)
       render :show, status: :unprocessable_entity
     end
+  end
+
+  def following
+    @users = @user.followings
+    @page_title = "Following"
+  end
+
+  def followers
+    @users = @user.followers
+    @page_title = "Followers"
   end
 
   private

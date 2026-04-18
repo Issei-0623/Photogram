@@ -1,0 +1,68 @@
+.user-list-page {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 24px 16px;
+}
+
+.user-list {
+  margin-top: 24px;
+}
+
+.user-list-item {
+  border-bottom: 1px solid #e5e5e5;
+}
+
+.user-list-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 0;
+  text-decoration: none;
+  color: inherit;
+}
+
+.user-list-avatar img {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.user-list-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-list-name {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+}
+
+.user-list-empty {
+  margin-top: 24px;
+  color: #666;
+}
+
+.follow-stats {
+  display: flex;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.follow-stats-link {
+  display: inline-flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+}
+
+.follow-count {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.follow-label {
+  font-size: 14px;
+  color: #666;
+}

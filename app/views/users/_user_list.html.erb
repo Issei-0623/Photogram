@@ -1,0 +1,23 @@
+<% if users.any? %>
+  <div class="user-list">
+    <% users.each do |user| %>
+      <div class="user-list-item">
+        <%= link_to user_path(user), class: "user-list-link" do %>
+          <div class="user-list-avatar">
+            <% if user.avatar.attached? %>
+              <%= image_tag user.avatar, alt: user.account_name %>
+            <% else %>
+              <%= image_tag "default-avatar.png", alt: user.account_name %>
+            <% end %>
+          </div>
+
+          <div class="user-list-info">
+            <p class="user-list-name"><%= user.account_name %></p>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <p class="user-list-empty">ユーザーはいません。</p>
+<% end %>
