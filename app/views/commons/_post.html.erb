@@ -1,15 +1,17 @@
-<%= render "commons/avatar", user: post.user %>
+<div class="post-header">
+  <%= link_to user_path(post.user), class: "user-link" do %>
+    <%= render "commons/avatar", user: post.user %>
+  <% end %>
+
+  <div class="post-user-meta">
+    <%= link_to post.user.account_name, user_path(post.user), class: "user-link" %>
+    <p><%= post.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+  </div>
+</div>
 
 <%= link_to post_path(post), class: "post-detail-link" do %>
-  <p><%= post.user.account_name %></p>
-  <p><%= post.created_at.strftime("%Y/%m/%d %H:%M") %></p>
   <p><%= post.content %></p>
-
-  <% if post.images.attached? %>
-    <% post.images.each do |image| %>
-      <%= image_tag image.variant(resize_to_fill: [100, 100]).processed %>
-    <% end %>
-  <% end %>
+  <%= render "posts/post_images_preview", post: post %>
 <% end %>
 
 <%= render "likes/like_button", post: post %>

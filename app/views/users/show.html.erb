@@ -1,0 +1,63 @@
+<% if current_user == @user %>
+  <%= form_with model: @user, url: user_path(@user), method: :patch, local: true do |f| %>
+    <div data-controller="avatar">
+      <div>
+        <p>アカウント名</p>
+        <%= f.text_field :account_name %>
+      </div>
+
+      <div>
+        <p>プロフィール画像</p>
+
+        <%= image_tag(
+          @user.avatar.attached? ?
+          @user.avatar.variant(resize_to_fill: [100, 100]) :
+          "default_avatar.png",
+          class: "profile-avatar",
+          data: {
+            action: "click->avatar#select",
+            avatar_target: "preview",
+            default_avatar_url: asset_path("default_avatar.png")
+          }
+        ) %>
+
+        <%= f.file_field :avatar,
+          accept: "image/*",
+          style: "display: none;",
+          data: { avatar_target: "input", action: "change->avatar#preview" } %>
+
+        <%= hidden_field_tag :remove_avatar, "0", data: { avatar_target: "removeFlag" } %>
+
+        <button type="button" data-action="click->avatar#reset">
+          現在のプロフィール画像を削除する
+        </button>
+      </div>
+
+      <p>投稿数: <%= @user.posts.count %></p>
+      <p>フォロワー数: <%= @user.followers.count %></p>
+      <p>フォロー数: <%= @user.followings.count %></p>
+
+      <%= f.submit "保存する" %>
+    </div>
+  <% end %>
+<% else %>
+  <h1><%= @user.account_name %></h1>
+  <%= render "commons/avatar", user: @user %>
+
+  <p>投稿数: <%= @user.posts.count %></p>
+  <p>フォロワー数: <%= @user.followers.count %></p>
+  <p>フォロー数: <%= @user.followings.count %></p>
+
+  <% if current_user.following?(@user) %>
+    <%= button_to "フォロー解除",
+                  relationship_path(current_user.active_relationships.find_by(followed_id: @user.id)),
+                  method: :delete %>
+  <% else %>
+    <%= button_to "フォロー",
+                  relationships_path(user_id: @user.id),
+                  method: :post %>
+  <% end %>
+<% end %>
+
+<h2>投稿一覧</h2>
+<%= render "posts/post_grid", posts: @posts %>
