@@ -1,0 +1,9 @@
+<div class="post-grid">
+  <% posts.each do |post| %>
+    <div class="post-grid-item">
+      <%= link_to post_path(post) do %>
+        <%= render "posts/post_images_preview", post: post %>
+      <% end %>
+    </div>
+  <% end %>
+</div>
