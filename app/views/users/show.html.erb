@@ -33,9 +33,7 @@
         </button>
       </div>
 
-      <p>投稿数: <%= @user.posts.count %></p>
-      <p>フォロワー数: <%= @user.followers.count %></p>
-      <p>フォロー数: <%= @user.followings.count %></p>
+      <%= render "profile_stats", user: @user %>
 
       <%= f.submit "保存する" %>
     </div>
@@ -44,9 +42,7 @@
   <h1><%= @user.account_name %></h1>
   <%= render "commons/avatar", user: @user %>
 
-  <p>投稿数: <%= @user.posts.count %></p>
-  <p>フォロワー数: <%= @user.followers.count %></p>
-  <p>フォロー数: <%= @user.followings.count %></p>
+  <%= render "profile_stats", user: @user %>
 
   <% if current_user.following?(@user) %>
     <%= button_to "フォロー解除",

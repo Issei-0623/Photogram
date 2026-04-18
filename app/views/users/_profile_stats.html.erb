@@ -1,0 +1,15 @@
+<div class="profile-stats">
+  <p class="profile-stats-posts">投稿数: <%= user.posts.count %></p>
+
+  <div class="follow-stats">
+    <%= link_to following_user_path(user), class: "follow-stats-link" do %>
+      <span class="follow-count"><%= user.followings.count %></span>
+      <span class="follow-label">フォロー中</span>
+    <% end %>
+
+    <%= link_to followers_user_path(user), class: "follow-stats-link" do %>
+      <span class="follow-count"><%= user.followers.count %></span>
+      <span class="follow-label">フォロワー</span>
+    <% end %>
+  </div>
+</div>
