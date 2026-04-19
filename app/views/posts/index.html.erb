@@ -1,9 +1,50 @@
-<h1>投稿一覧</h1>
+<%= link_to "Photogram", posts_path %>
+<%= link_to "タイムライン", posts_path(type: "timeline") %>
 
-<% @posts.each do |post| %>
-  <div class="post-card">
-    <%= render "commons/post", post: post %>
-  </div>
+<% if params[:type] == "timeline" %>
+
+  <% if current_user.followings.any? %>
+
+    <h2>人気投稿（フォロー中）</h2>
+
+    <% if @popular_posts.any? %>
+      <% @popular_posts.each do |post| %>
+        <div class="popular-post-card">
+          <p class="like-count">❤️ <%= post.likes.count %></p>
+          <%= render "commons/post", post: post %>
+        </div>
+      <% end %>
+    <% else %>
+      <p>人気投稿はまだありません。</p>
+    <% end %>
+
+    <h2>フォロー中の投稿</h2>
+
+    <% if @posts.any? %>
+      <% @posts.each do |post| %>
+        <%= render "commons/post", post: post %>
+      <% end %>
+    <% else %>
+      <p>フォロー中ユーザーの投稿はまだありません。</p>
+    <% end %>
+
+  <% else %>
+    <div class="empty-timeline">
+      <p>フォローしているユーザーがいません。</p>
+      <p>ユーザーをフォローすると投稿が表示されます。</p>
+    </div>
+  <% end %>
+
+<% else %>
+  <h2>新着投稿</h2>
+
+  <% if @recent_posts.any? %>
+    <% @recent_posts.each do |post| %>
+      <%= render "commons/post", post: post %>
+    <% end %>
+  <% else %>
+    <p>投稿はまだありません。</p>
+  <% end %>
 <% end %>
 
 <%= link_to "新投稿", new_post_path %>
