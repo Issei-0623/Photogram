@@ -2,9 +2,9 @@
 /* app/assets/stylesheets/application.scss */
 // @import "based/body";
 
-
+@import "pages/posts";
 @import "pages/profiles";
 @import "pages/follow";
 
 @import "shared/buttons";
-@import "shared/profiles";
+
