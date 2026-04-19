@@ -1,7 +1,7 @@
 Rails.application.routes.draw do
   get "users/show"
   devise_for :users
-  root to: "home#index"
+  root to: "posts#index"
   mount LetterOpenerWeb::Engine, at: "/letter_opener" if Rails.env.development?
 
   get "up" => "rails/health#show", as: :rails_health_check
