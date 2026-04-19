@@ -1,6 +1,8 @@
 <%= link_to "Photogram", posts_path %>
 <%= link_to "タイムライン", posts_path(type: "timeline") %>
 
+<%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %>
+
 <% if params[:type] == "timeline" %>
 
   <% if current_user.followings.any? %>
