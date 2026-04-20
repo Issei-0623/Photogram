@@ -14,4 +14,5 @@ class Post < ApplicationRecord
         .group("posts.id")
         .order("COUNT(likes.id) DESC")
     }
+  validates :content, :images, presence: true
 end
