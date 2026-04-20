@@ -1,16 +1,34 @@
-<h1>新規投稿</h1>
+<%= form_with model: @post, local: true, html: { class: "status-form" } do |f| %>
+  <div class="status-container">
+    <div class="status-header">
+      <%= link_to "Cancel", posts_path, class: "status-cancel" %>
+      <h1 class="status-title">Status</h1>
+      <%= f.submit "Post", class: "status-submit" %>
+    </div>
 
-<%= form_with model: @post, local: true do |f| %>
-  <div>
-    <%= f.text_area :content %>
-  </div>
+    <div class="status-user">
+      <% if @user.avatar.attached? %>
+        <%= image_tag @user.avatar, alt: @user.account_name, class: "status-user-avatar" %>
+      <% else %>
+        <%= image_tag "default_avatar.png", alt: @user.account_name, class: "status-user-avatar" %>
+      <% end %>
 
-  <div>
-    <%= f.file_field :images, multiple: true %>
-  </div>
+      <p class="status-user-name"><%= @user.account_name %></p>
+    </div>
 
-  <div>
-    <%= f.submit "投稿" %>
+    <div class="status-content">
+      <%= f.text_area :content, placeholder: "What's on your mind ?", autofocus: true, class: "status-textfield" %>
+    </div>
+
+    <div class="status-album">
+      <%= f.file_field :images,
+            multiple: true,
+            id: "post_images",
+            class: "status-file-input" %>
+
+      <%= label_tag "post_images", class: "status-album-button" do %>
+        +   Album
+      <% end %>
+    </div>
   </div>
-  <%= link_to '戻る', posts_path %>
 <% end %>
