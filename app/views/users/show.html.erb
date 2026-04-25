@@ -1,59 +1,108 @@
-<%= link_to '投稿一覧', posts_path %>
-<% if current_user == @user %>
-  <%= form_with model: @user, url: user_path(@user), method: :patch, local: true do |f| %>
-    <div data-controller="avatar">
-      <div>
-        <p>アカウント名</p>
-        <%= f.text_field :account_name %>
-      </div>
+<div class="profile-page">
+  <div class="profile-header">
+    <%= link_to posts_path, class: "profile-back" do %>
+      ←
+    <% end %>
 
-      <div>
-        <p>プロフィール画像</p>
+    <div class="profile-header-center">
+      <% if current_user == @user %>
+        <%= form_with model: @user, url: user_path(@user), method: :patch, local: true, html: { class: "profile-header-form" } do |f| %>
+          <details class="profile-header-name-menu">
+            <summary class="profile-header-name profile-header-name--editable">
+              <%= @user.account_name %>
+            </summary>
 
-        <%= image_tag(
-          @user.avatar.attached? ?
-          @user.avatar.variant(resize_to_fill: [100, 100]) :
-          "default_avatar.png",
-          class: "profile-avatar",
-          data: {
-            action: "click->avatar#select",
-            avatar_target: "preview",
-            default_avatar_url: asset_path("default_avatar.png")
-          }
-        ) %>
-
-        <%= f.file_field :avatar,
-          accept: "image/*",
-          style: "display: none;",
-          data: { avatar_target: "input", action: "change->avatar#preview" } %>
-
-        <%= hidden_field_tag :remove_avatar, "0", data: { avatar_target: "removeFlag" } %>
-
-        <button type="button" data-action="click->avatar#reset">
-          現在のプロフィール画像を削除する
-        </button>
-      </div>
-
-      <%= render "profile_stats", user: @user %>
-
-      <%= f.submit "保存する" %>
+            <div class="profile-header-name-edit">
+              <%= f.text_field :account_name, class: "profile-name-input" %>
+              <%= f.submit "保存", class: "profile-save-button" %>
+            </div>
+          </details>
+        <% end %>
+      <% else %>
+        <h1 class="profile-header-name"><%= @user.account_name %></h1>
+      <% end %>
     </div>
-  <% end %>
-<% else %>
-  <h1><%= @user.account_name %></h1>
-  <%= render "commons/avatar", user: @user %>
 
-  <%= render "profile_stats", user: @user %>
+    <div class="profile-header-action">
+      <% if current_user == @user %>
+        <span class="profile-header-placeholder"></span>
+      <% else %>
+        <% if current_user.following?(@user) %>
+          <%= button_to "Unfollow",
+                        relationship_path(current_user.active_relationships.find_by(followed_id: @user.id)),
+                        method: :delete,
+                        class: "profile-follow-button profile-follow-button--active" %>
+        <% else %>
+          <%= button_to "Follow",
+                        relationships_path(user_id: @user.id),
+                        method: :post,
+                        class: "profile-follow-button" %>
+        <% end %>
+      <% end %>
+    </div>
+  </div>
 
-  <% if current_user.following?(@user) %>
-    <%= button_to "フォロー解除",
-                  relationship_path(current_user.active_relationships.find_by(followed_id: @user.id)),
-                  method: :delete %>
-  <% else %>
-    <%= button_to "フォロー",
-                  relationships_path(user_id: @user.id),
-                  method: :post %>
-  <% end %>
-<% end %>
+  <div class="profile-main">
+    <% if current_user == @user %>
+      <%= form_with model: @user, url: user_path(@user), method: :patch, local: true, html: { class: "profile-edit-form", data: { controller: "avatar" } } do |f| %>
+        <details class="profile-avatar-menu">
+          <summary class="profile-avatar-summary">
+            <% if @user.avatar.attached? %>
+              <%= image_tag @user.avatar.variant(resize_to_fill: [120, 120]),
+                    class: "profile-avatar",
+                    data: {
+                      avatar_target: "preview",
+                      default_avatar_url: asset_path("default_avatar.png")
+                    } %>
+            <% else %>
+              <%= image_tag "default_avatar.png",
+                    class: "profile-avatar",
+                    data: {
+                      avatar_target: "preview",
+                      default_avatar_url: asset_path("default_avatar.png")
+                    } %>
+            <% end %>
+          </summary>
 
-<%= render "posts/post_grid", posts: @posts %>
+          <div class="profile-avatar-actions">
+            <%= f.file_field :avatar,
+                  id: "avatar_input",
+                  class: "profile-avatar-input",
+                  data: {
+                    avatar_target: "input",
+                    action: "change->avatar#preview"
+                  } %>
+
+            <%= hidden_field_tag :remove_avatar, "0", data: { avatar_target: "removeFlag" } %>
+
+            <%= label_tag "avatar_input", "画像を変更", class: "profile-avatar-action" %>
+
+            <p data-avatar-target="fileName" class="profile-file-name"></p>
+
+            <%= f.submit "画像を保存", class: "profile-avatar-action" %>
+
+            <button type="button"
+                    class="profile-avatar-action profile-avatar-action--danger"
+                    data-action="click->avatar#reset">
+              画像を削除
+            </button>
+          </div>
+        </details>
+      <% end %>
+    <% else %>
+      <div class="profile-avatar-wrapper">
+        <% if @user.avatar.attached? %>
+          <%= image_tag @user.avatar.variant(resize_to_fill: [120, 120]), class: "profile-avatar" %>
+        <% else %>
+          <%= image_tag "default_avatar.png", class: "profile-avatar" %>
+        <% end %>
+      </div>
+    <% end %>
+
+    <%= render "profile_stats", user: @user %>
+  </div>
+
+  <div class="profile-posts-section">
+    <%= render "posts/post_grid", posts: @posts %>
+  </div>
+</div>
