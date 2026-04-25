@@ -1,7 +1,7 @@
 import { Controller } from "@hotwired/stimulus"
 
 export default class extends Controller {
-  static targets = ["input", "preview", "removeFlag"]
+  static targets = ["input", "preview", "removeFlag", "fileName"]
 
   select() {
     this.inputTarget.click()
@@ -12,9 +12,9 @@ export default class extends Controller {
     if (!file) return
 
     this.removeFlagTarget.value = "0"
+    this.fileNameTarget.textContent = file.name
 
     const reader = new FileReader()
-
     reader.onload = (e) => {
       this.previewTarget.src = e.target.result
     }
@@ -26,5 +26,6 @@ export default class extends Controller {
     this.previewTarget.src = this.previewTarget.dataset.defaultAvatarUrl
     this.inputTarget.value = ""
     this.removeFlagTarget.value = "1"
+    this.fileNameTarget.textContent = ""
   }
 }

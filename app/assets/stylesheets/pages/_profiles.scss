@@ -1,31 +1,232 @@
-.profile-avatar {
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  object-fit: cover;
+.profile-page {
+  min-height: 100vh;
+  background: #f3f3f3;
+  padding: 0 16px 32px;
+}
+
+.profile-header {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  align-items: start;
+  padding: 16px 0 24px;
+}
+
+.profile-back {
+  color: #333;
+  text-decoration: none;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.profile-header-center {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-header-name {
+  margin: 0;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.profile-header-form {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-header-name-menu {
+  text-align: center;
+}
+
+.profile-header-name-menu summary {
+  list-style: none;
+}
+
+.profile-header-name-menu summary::-webkit-details-marker {
+  display: none;
+}
+
+.profile-header-name--editable {
   cursor: pointer;
 }
 
-.post-images-grid {
+.profile-header-name-edit {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.profile-header-action {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.profile-header-action form {
+  margin: 0;
+}
+
+.profile-header-placeholder {
+  display: inline-block;
+  width: 72px;
+  height: 32px;
+}
+
+.profile-follow-button {
+  border: none;
+  background: none;
+  color: #b3b3b3;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.profile-follow-button--active {
+  color: #333;
+}
+
+.profile-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-edit-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-avatar-area,
+.profile-avatar-menu,
+.profile-avatar-wrapper {
+  margin-bottom: 40px;
+}
+
+.profile-avatar-summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.profile-avatar-summary::-webkit-details-marker {
+  display: none;
+}
+
+.profile-avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ff2d78;
+  padding: 4px;
+  background: #f3f3f3;
+}
+
+.profile-avatar-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-avatar-wrapper--editable {
+  cursor: pointer;
+}
+
+.profile-avatar-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+  align-items: center;
+}
+
+.profile-avatar-action {
+  border: none;
+  background: white;
+  color: #333;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.profile-avatar-action--danger {
+  color: #e53935;
+}
+
+.profile-avatar-input {
+  display: none;
+}
+
+.profile-name-input {
+  width: 220px;
+  border: none;
+  border-bottom: 1px solid #9e9e9e;
+  background: transparent;
+  font-size: 16px;
+  color: #333;
+  padding-bottom: 8px;
+  text-align: center;
+  outline: none;
+}
+
+.profile-save-button {
+  border: none;
+  background: #333;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.profile-stats {
+  width: 100%;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 4px;
+  text-align: center;
+  margin-bottom: 40px;
 }
 
-.image-wrapper {
-  position: relative;
-}
-
-.overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0,0,0,0.5);
-  color: white;
+.profile-stat-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: 20px;
+  gap: 6px;
+}
+
+.profile-stat-link {
+  color: inherit;
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+}
+
+.profile-stat-count {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.profile-stat-label {
+  font-size: 14px;
+  color: #a3a3a3;
+}
+
+.profile-posts-section {
+  width: 100%;
+  margin-top: 16px;
+}
+
+.profile-file-name {
+  margin-top: 6px;
+  font-size: 12px;
+  color: #666;
+  text-align: center;
 }

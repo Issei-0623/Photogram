@@ -1,8 +1,23 @@
 <div class="post-grid">
   <% posts.each do |post| %>
+    <% image_count = post.images.count %>
+    <% visible_images = post.images.first(4) %>
+
     <div class="post-grid-item">
       <%= link_to post_path(post) do %>
-        <%= render "posts/post_images_preview", post: post %>
+        <div class="post-images-grid post-images-grid--<%= [image_count, 4].min %>">
+          <% visible_images.each_with_index do |image, index| %>
+            <div class="image-wrapper">
+              <%= image_tag image %>
+
+              <% if image_count > 4 && index == 3 %>
+                <div class="overlay">
+                  +<%= image_count - 4 %>
+                </div>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
       <% end %>
     </div>
   <% end %>
