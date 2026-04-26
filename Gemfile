@@ -56,6 +56,9 @@ group :development, :test do
 
   gem "faker" # ダミーデータ作成
   gem "pry-byebug" # pry にデバッガ機能
+
+  gem "rspec-rails"
+  gem "factory_bot_rails"
 end
 
 group :development do
