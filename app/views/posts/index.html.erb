@@ -1,52 +1,75 @@
-<%= link_to "Photogram", posts_path %>
-<%= link_to "タイムライン", posts_path(type: "timeline") %>
+<div class="feed-page">
+  <header class="feed-header">
+    <%= link_to new_post_path, class: "feed-header-icon" do %>
+      <%= image_tag "photo-camera.png", alt: "新規投稿" %>
+    <% end %>
 
-<%= link_to "ログアウト", destroy_user_session_path, data: { turbo_method: :delete } %>
+    <details class="feed-title-menu">
+      <summary class="feed-title">Photogram</summary>
 
-<% if params[:type] == "timeline" %>
+      <div class="feed-menu">
+        <%= link_to "全体の投稿", posts_path, class: "feed-menu-item" %>
+        <%= link_to "タイムライン", posts_path(type: "timeline"), class: "feed-menu-item" %>
+      </div>
+    </details>
 
-  <% if current_user.followings.any? %>
+    <details class="feed-settings-menu">
+      <summary class="feed-header-icon">
+        <%= image_tag "setting.png", alt: "設定" %>
+      </summary>
 
-    <h2>人気投稿（フォロー中）</h2>
+      <div class="feed-menu feed-menu--right">
+        <%= link_to "プロフィール編集", user_path(current_user), class: "feed-menu-item" %>
+        <%= link_to "ログアウト",
+              destroy_user_session_path,
+              data: { turbo_method: :delete },
+              class: "feed-menu-item feed-menu-item--danger" %>
+      </div>
+    </details>
+  </header>
 
-    <% if @popular_posts.any? %>
-      <% @popular_posts.each do |post| %>
-        <div class="popular-post-card">
-          <p class="like-count">❤️ <%= post.likes.count %></p>
-          <%= render "commons/post", post: post %>
+  <main class="feed-posts">
+    <% if params[:type] == "timeline" %>
+      <% if current_user.followings.any? %>
+        <% if @popular_posts.any? %>
+          <section class="feed-section">
+            <h2 class="feed-section-title">人気投稿</h2>
+
+            <% @popular_posts.each do |post| %>
+              <%= render "commons/post", post: post %>
+            <% end %>
+          </section>
+        <% end %>
+
+        <section class="feed-section">
+          <h2 class="feed-section-title">タイムライン</h2>
+
+          <% if @posts.any? %>
+            <% @posts.each do |post| %>
+              <%= render "commons/post", post: post %>
+            <% end %>
+          <% else %>
+            <div class="feed-empty">
+              <p>フォロー中ユーザーの投稿はまだありません。</p>
+            </div>
+          <% end %>
+        </section>
+      <% else %>
+        <div class="feed-empty">
+          <p>フォローしているユーザーがいません。</p>
+          <p>ユーザーをフォローすると投稿が表示されます。</p>
         </div>
       <% end %>
     <% else %>
-      <p>人気投稿はまだありません。</p>
-    <% end %>
-
-    <h2>フォロー中の投稿</h2>
-
-    <% if @posts.any? %>
-      <% @posts.each do |post| %>
-        <%= render "commons/post", post: post %>
+      <% if @recent_posts.any? %>
+        <% @recent_posts.each do |post| %>
+          <%= render "commons/post", post: post %>
+        <% end %>
+      <% else %>
+        <div class="feed-empty">
+          <p>投稿はまだありません。</p>
+        </div>
       <% end %>
-    <% else %>
-      <p>フォロー中ユーザーの投稿はまだありません。</p>
     <% end %>
-
-  <% else %>
-    <div class="empty-timeline">
-      <p>フォローしているユーザーがいません。</p>
-      <p>ユーザーをフォローすると投稿が表示されます。</p>
-    </div>
-  <% end %>
-
-<% else %>
-  <h2>新着投稿</h2>
-
-  <% if @recent_posts.any? %>
-    <% @recent_posts.each do |post| %>
-      <%= render "commons/post", post: post %>
-    <% end %>
-  <% else %>
-    <p>投稿はまだありません。</p>
-  <% end %>
-<% end %>
-
-<%= link_to "新投稿", new_post_path %>
+  </main>
+</div>
