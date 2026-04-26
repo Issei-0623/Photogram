@@ -1,5 +1,7 @@
 class PostsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_post, only: [:show, :edit, :update, :destroy]
+  before_action :ensure_correct_user, only: [:edit, :update, :destroy]
 
   def index
     if params[:type] == "timeline"
@@ -28,15 +30,39 @@ class PostsController < ApplicationController
     if @post.save
       redirect_to posts_path
     else
-      render :new
+      render :new, status: :unprocessable_entity
     end
   end
 
   def show
-    @post = Post.find(params[:id])
+    @comments = @post.comments.includes(:user).order(created_at: :desc)
+  end
+
+  def edit
+  end
+
+  def update
+    if @post.update(post_params)
+      redirect_to post_path(@post), notice: "投稿を更新しました"
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    @post.destroy
+    redirect_to posts_path, notice: "投稿を削除しました"
   end
 
   private
+
+  def set_post
+    @post = Post.find(params[:id])
+  end
+
+  def ensure_correct_user
+    redirect_to post_path(@post), alert: "権限がありません" unless @post.user == current_user
+  end
 
   def post_params
     params.require(:post).permit(:content, images: [])

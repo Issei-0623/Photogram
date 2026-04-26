@@ -1,10 +1,12 @@
-<div class="feed-page">
+<div class="feed-page" data-controller="accordion-menu">
   <header class="feed-header">
     <%= link_to new_post_path, class: "feed-header-icon" do %>
       <%= image_tag "photo-camera.png", alt: "新規投稿" %>
     <% end %>
 
-    <details class="feed-title-menu">
+    <details class="feed-title-menu"
+            data-accordion-menu-target="menu"
+            data-action="toggle->accordion-menu#closeOthers">
       <summary class="feed-title">Photogram</summary>
 
       <div class="feed-menu">
@@ -13,7 +15,10 @@
       </div>
     </details>
 
-    <details class="feed-settings-menu">
+
+    <details class="feed-settings-menu"
+            data-accordion-menu-target="menu"
+            data-action="toggle->accordion-menu#closeOthers">
       <summary class="feed-header-icon">
         <%= image_tag "setting.png", alt: "設定" %>
       </summary>
