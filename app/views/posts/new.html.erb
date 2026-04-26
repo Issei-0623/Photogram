@@ -1,10 +1,28 @@
-<%= form_with model: @post, local: true, html: { class: "status-form" } do |f| %>
+<%= form_with model: @post,
+      local: true,
+      html: {
+        class: "status-form",
+        data: { controller: "post-form" }
+      } do |f| %>
   <div class="status-container">
     <div class="status-header">
       <%= link_to "Cancel", posts_path, class: "status-cancel" %>
       <h1 class="status-title">Status</h1>
-      <%= f.submit "Post", class: "status-submit" %>
+      <%= f.submit "Post",
+            class: "status-submit",
+            disabled: true,
+            data: { post_form_target: "submit" } %>
     </div>
+
+    <% if @post.errors.any? %>
+      <div class="status-errors">
+        <% @post.errors.full_messages.each do |message| %>
+          <p><%= message %></p>
+        <% end %>
+      </div>
+    <% end %>
+
+    <p class="status-validation-message" data-post-form-target="message"></p>
 
     <div class="status-user">
       <% if @user.avatar.attached? %>
@@ -17,18 +35,31 @@
     </div>
 
     <div class="status-content">
-      <%= f.text_area :content, placeholder: "What's on your mind ?", autofocus: true, class: "status-textfield" %>
+      <%= f.text_area :content,
+            placeholder: "What's on your mind ?",
+            autofocus: true,
+            class: "status-textfield",
+            data: {
+              post_form_target: "content",
+              action: "input->post-form#validate"
+            } %>
     </div>
 
     <div class="status-album">
       <%= f.file_field :images,
             multiple: true,
             id: "post_images",
-            class: "status-file-input" %>
+            class: "status-file-input",
+            data: {
+              post_form_target: "images",
+              action: "change->post-form#selectImages"
+            } %>
 
       <%= label_tag "post_images", class: "status-album-button" do %>
-        +   Album
+        + Album
       <% end %>
+
+      <p class="status-file-name" data-post-form-target="fileName"></p>
     </div>
   </div>
 <% end %>
