@@ -1,0 +1,94 @@
+.profile-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-edit-form {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profile-avatar-area,
+.profile-avatar-menu,
+.profile-avatar-wrapper {
+  margin-bottom: 40px;
+}
+
+.profile-avatar-summary {
+  list-style: none;
+  cursor: pointer;
+}
+
+.profile-avatar-summary::-webkit-details-marker {
+  display: none;
+}
+
+.profile-avatar {
+  width: 84px;
+  height: 84px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid #ff2d78;
+  padding: 4px;
+  background: #f3f3f3;
+}
+
+.profile-avatar-wrapper {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-avatar-wrapper--editable {
+  cursor: pointer;
+}
+
+.profile-avatar-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 12px;
+  align-items: center;
+}
+
+.profile-avatar-action {
+  border: none;
+  background: white;
+  color: #333;
+  font-size: 14px;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.profile-avatar-action--danger {
+  color: #e53935;
+}
+
+.profile-avatar-input {
+  display: none;
+}
+
+.profile-name-input {
+  width: 220px;
+  border: none;
+  border-bottom: 1px solid #9e9e9e;
+  background: transparent;
+  font-size: 16px;
+  color: #333;
+  padding-bottom: 8px;
+  text-align: center;
+  outline: none;
+}
+
+.profile-save-button {
+  border: none;
+  background: #333;
+  color: white;
+  padding: 8px 16px;
+  border-radius: 8px;
+  cursor: pointer;
+}

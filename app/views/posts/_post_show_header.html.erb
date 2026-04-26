@@ -1,0 +1,22 @@
+<header class="post-show-header">
+  <%= link_to "←", back_path, class: "post-show-back" %>
+
+  <p class="post-show-title"><%= title %></p>
+
+  <% if show_menu %>
+    <details class="post-show-menu">
+      <summary class="post-show-menu-button">⋯</summary>
+
+      <div class="post-show-menu-list">
+        <%= link_to "編集", edit_post_path(post), class: "post-show-menu-item" %>
+        <%= button_to "削除",
+              post_path(post),
+              method: :delete,
+              data: { turbo_confirm: "投稿を削除しますか？" },
+              class: "post-show-menu-item post-show-menu-item--danger" %>
+      </div>
+    </details>
+  <% else %>
+    <span class="post-show-menu-placeholder"></span>
+  <% end %>
+</header>

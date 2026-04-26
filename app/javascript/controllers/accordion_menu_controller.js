@@ -30,5 +30,12 @@ export default class extends Controller {
     if (clickedMenu) return
 
     this.closeAll()
-    }
+  }
+
+  closeAll() {
+    this.menuTargets.forEach((menu) => {
+      menu.open = false
+    })
+  }
 }
+

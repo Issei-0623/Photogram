@@ -1,9 +1,9 @@
 <div class="post-edit-page">
-  <header class="post-show-header">
-    <%= link_to "←", post_path(@post), class: "post-show-back" %>
-    <p class="post-show-title">Edit</p>
-    <span class="post-show-menu-placeholder"></span>
-  </header>
+  <%= render "post_show_header",
+      title: "Edit",
+      back_path: post_path(@post),
+      post: @post,
+      show_menu: false %>
 
   <%= form_with model: @post, local: true, class: "post-edit-form" do |f| %>
     <% if @post.errors.any? %>

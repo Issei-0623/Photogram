@@ -1,0 +1,42 @@
+<div class="profile-header">
+  <%= link_to posts_path, class: "profile-back" do %>
+    ←
+  <% end %>
+
+  <div class="profile-header-center">
+    <% if current_user == user %>
+      <%= form_with model: user, url: user_path(user), method: :patch, local: true, html: { class: "profile-header-form" } do |f| %>
+        <details class="profile-header-name-menu">
+          <summary class="profile-header-name profile-header-name--editable">
+            <%= user.account_name %>
+          </summary>
+
+          <div class="profile-header-name-edit">
+            <%= f.text_field :account_name, class: "profile-name-input" %>
+            <%= f.submit "保存", class: "profile-save-button" %>
+          </div>
+        </details>
+      <% end %>
+    <% else %>
+      <h1 class="profile-header-name"><%= user.account_name %></h1>
+    <% end %>
+  </div>
+
+  <div class="profile-header-action">
+    <% if current_user == user %>
+      <span class="profile-header-placeholder"></span>
+    <% else %>
+      <% if current_user.following?(user) %>
+        <%= button_to "Unfollow",
+              relationship_path(current_user.active_relationships.find_by(followed_id: user.id)),
+              method: :delete,
+              class: "profile-follow-button profile-follow-button--active" %>
+      <% else %>
+        <%= button_to "Follow",
+              relationships_path(user_id: user.id),
+              method: :post,
+              class: "profile-follow-button" %>
+      <% end %>
+    <% end %>
+  </div>
+</div>

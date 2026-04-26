@@ -1,49 +1,13 @@
 <article class="feed-post-card">
-  <div class="feed-post-header">
-    <%= link_to user_path(post.user), class: "feed-post-avatar-link" do %>
-      <% if post.user.avatar.attached? %>
-        <%= image_tag post.user.avatar.variant(resize_to_fill: [80, 80]),
-              alt: post.user.account_name,
-              class: "feed-post-avatar" %>
-      <% else %>
-        <%= image_tag "default_avatar.png",
-              alt: post.user.account_name,
-              class: "feed-post-avatar" %>
-      <% end %>
-    <% end %>
-
-    <div class="feed-post-user">
-      <%= link_to post.user.account_name, user_path(post.user), class: "feed-post-user-name" %>
-      <p class="feed-post-time"><%= post.created_at.strftime("%Y/%m/%d %H:%M") %></p>
-    </div>
-  </div>
+  <%= render "posts/post_author", post: post, user: post.user %>
 
   <%= link_to post_path(post), class: "feed-post-image-link" do %>
     <%= render "posts/post_images_preview", post: post %>
   <% end %>
 
-  <div class="feed-post-actions">
-    <%= render "likes/like_button", post: post %>
+  <%= render "posts/post_actions",
+        post: post,
+        comment_path: post_path(post, anchor: "comment_section") %>
 
-    <%= link_to post_path(post, anchor: "comment_section"),
-          class: "feed-action-link feed-action-link--comment" do %>
-      <%= image_tag "Vector.png", alt: "コメント" %>
-    <% end %>
-
-    <% share_text = "#{post.content}\n#Photogram" %>
-    <% share_url = post_url(post) %>
-
-    <%= link_to "https://twitter.com/intent/tweet?text=#{CGI.escape(share_text)}&url=#{CGI.escape(share_url)}",
-          target: "_blank",
-          rel: "noopener",
-          class: "feed-action-link feed-action-link--share" do %>
-      <%= image_tag "share.png", alt: "シェア" %>
-    <% end %>
-  </div>
-
-
-  <div class="feed-post-content">
-    <%= link_to post.user.account_name, user_path(post.user), class: "feed-post-content-user" %>
-    <span><%= post.content %></span>
-  </div>
+  <%= render "posts/post_content", post: post %>
 </article>
