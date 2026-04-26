@@ -1,20 +1,75 @@
-<h1>投稿詳細</h1>
+<div class="post-show-page">
+  <header class="post-show-header">
+    <%= link_to "←", request.referer || posts_path, class: "post-show-back" %>
 
-  <%= render 'commons/post', post: @post %>
-    
-<% share_text = "#{@post.content}\n#Photogram" %>
-<% share_url = post_url(@post) %>
+    <p class="post-show-title">Post</p>
 
-<%= link_to "Xでシェアする",
-  "https://twitter.com/intent/tweet?text=#{CGI.escape(share_text)}&url=#{CGI.escape(share_url)}",
-  target: "_blank",
-  rel: "noopener",
-  class: "x-share-button" %>
+    <% if @post.user == current_user %>
+      <details class="post-show-menu">
+        <summary class="post-show-menu-button">⋯</summary>
 
-<h2>コメント</h2>
-<div id="comment_section">
-  <%= render "comments/comments", comments: @post.comments.includes(:user).order(created_at: :desc) %>
+        <div class="post-show-menu-list">
+          <%= link_to "編集", edit_post_path(@post), class: "post-show-menu-item" %>
+          <%= button_to "削除",
+                post_path(@post),
+                method: :delete,
+                data: { turbo_confirm: "投稿を削除しますか？" },
+                class: "post-show-menu-item post-show-menu-item--danger" %>
+        </div>
+      </details>
+    <% else %>
+      <span class="post-show-menu-placeholder"></span>
+    <% end %>
+  </header>
+
+  <article class="post-show-card">
+    <div class="feed-post-header">
+      <%= link_to user_path(@post.user), class: "feed-post-avatar-link" do %>
+        <% if @post.user.avatar.attached? %>
+          <%= image_tag @post.user.avatar.variant(resize_to_fill: [80, 80]),
+                alt: @post.user.account_name,
+                class: "feed-post-avatar" %>
+        <% else %>
+          <%= image_tag "default_avatar.png",
+                alt: @post.user.account_name,
+                class: "feed-post-avatar" %>
+        <% end %>
+      <% end %>
+
+      <div class="feed-post-user">
+        <%= link_to @post.user.account_name, user_path(@post.user), class: "feed-post-user-name" %>
+        <p class="feed-post-time"><%= @post.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+      </div>
+    </div>
+
+    <%= render "posts/post_detail_images", post: @post %>
+
+    <div class="feed-post-actions">
+      <%= render "likes/like_button", post: @post %>
+
+      <%= link_to "#comment_section", class: "feed-action-link feed-action-link--comment" do %>
+        <%= image_tag "Vector.png", alt: "コメント" %>
+      <% end %>
+
+      <% share_text = "#{@post.content}\n#Photogram" %>
+      <% share_url = post_url(@post) %>
+
+      <%= link_to "https://twitter.com/intent/tweet?text=#{CGI.escape(share_text)}&url=#{CGI.escape(share_url)}",
+            target: "_blank",
+            rel: "noopener",
+            class: "feed-action-link feed-action-link--share" do %>
+        <%= image_tag "share.png", alt: "シェア" %>
+      <% end %>
+    </div>
+
+    <div class="feed-post-content">
+      <%= link_to @post.user.account_name, user_path(@post.user), class: "feed-post-content-user" %>
+      <span><%= @post.content %></span>
+    </div>
+  </article>
+
+  <div id="comment_section" class="post-show-comments">
+    <%= render "comments/comments", comments: @comments %>
+    <%= render "comments/form", post: @post %>
+  </div>
 </div>
-
-<%= render "comments/form", post: @post %>
-<%= link_to '投稿一覧', posts_path %>

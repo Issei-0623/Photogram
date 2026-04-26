@@ -1,0 +1,24 @@
+<% if post.images.attached? %>
+  <div class="post-detail-media"
+       data-controller="post-slider"
+       data-post-slider-active-src-value="<%= asset_path("Rectangle_white.png") %>"
+       data-post-slider-inactive-src-value="<%= asset_path("Rectangle_gray.png") %>">
+    <div class="post-detail-slider" data-post-slider-target="slider">
+      <% post.images.each do |image| %>
+        <div class="post-detail-slide">
+          <%= image_tag image.variant(resize_to_fill: [600, 600]).processed %>
+        </div>
+      <% end %>
+    </div>
+
+    <% if post.images.size > 1 %>
+      <div class="post-detail-indicators">
+        <% post.images.each_with_index do |_, index| %>
+          <%= image_tag index.zero? ? "Rectangle_white.png" : "Rectangle_gray.png",
+                class: "post-detail-indicator",
+                data: { post_slider_target: "indicator" } %>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+<% end %>
