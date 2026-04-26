@@ -1,0 +1,170 @@
+.post-show-page {
+  min-height: 100vh;
+  background: white;
+}
+
+.post-show-header {
+  position: sticky;
+  top: 0;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: 44px 1fr 44px;
+  align-items: center;
+  padding: 14px 16px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.post-show-back {
+  color: #333;
+  text-decoration: none;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.post-show-title {
+  margin: 0;
+  text-align: center;
+  color: #333;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.post-show-menu {
+  position: relative;
+  justify-self: end;
+}
+
+.post-show-menu-button {
+  list-style: none;
+  color: #333;
+  font-size: 28px;
+  line-height: 1;
+  cursor: pointer;
+  text-align: right;
+}
+
+.post-show-menu-button::-webkit-details-marker {
+  display: none;
+}
+
+.post-show-menu-list {
+  position: absolute;
+  top: 34px;
+  right: 0;
+  min-width: 120px;
+  padding: 8px 0;
+  background: white;
+  border: 1px solid #eeeeee;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.12);
+  z-index: 30;
+  box-sizing: border-box;
+}
+
+.post-show-menu-list form {
+  margin: 0;
+}
+
+.post-show-menu-item {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px 14px;
+  border: none;
+  background: white;
+  color: #333;
+  font-size: 14px;
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.post-show-menu-item--danger {
+  color: #e53935;
+}
+
+.post-show-menu-placeholder {
+  display: block;
+  width: 44px;
+  height: 32px;
+}
+
+.post-show-card {
+  background: white;
+}
+
+.post-detail-media {
+  position: relative;
+  width: calc(100% - 32px);
+  margin: 0 16px;
+}
+
+.post-detail-slider {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  aspect-ratio: 1 / 1;
+  border-radius: 4px;
+  background: #ddd;
+}
+
+.post-detail-slider::-webkit-scrollbar {
+  display: none;
+}
+
+.post-detail-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.post-detail-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.post-detail-indicators {
+  position: absolute;
+  left: 50%;
+  bottom: 14px;
+  display: flex;
+  gap: 8px;
+  transform: translateX(-50%);
+  z-index: 5;
+}
+
+.post-detail-indicator {
+  width: 10px;
+  height: 10px;
+  object-fit: contain;
+}
+
+.post-edit-page {
+  min-height: 100vh;
+  background: white;
+}
+
+.post-edit-form {
+  padding: 24px 16px;
+}
+
+.post-edit-textarea {
+  min-height: 160px;
+  resize: vertical;
+}
+
+.post-edit-submit {
+  width: 100%;
+  margin-top: 24px;
+  padding: 14px 0;
+  border: none;
+  background: #333;
+  color: white;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}

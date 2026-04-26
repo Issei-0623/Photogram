@@ -1,0 +1,33 @@
+<header class="feed-header">
+    <%= link_to new_post_path, class: "feed-header-icon" do %>
+      <%= image_tag "photo-camera.png", alt: "新規投稿" %>
+    <% end %>
+
+    <details class="feed-title-menu"
+            data-accordion-menu-target="menu"
+            data-action="toggle->accordion-menu#closeOthers">
+      <summary class="feed-title">Photogram</summary>
+
+      <div class="feed-menu">
+        <%= link_to "全体の投稿", posts_path, class: "feed-menu-item" %>
+        <%= link_to "タイムライン", posts_path(type: "timeline"), class: "feed-menu-item" %>
+      </div>
+    </details>
+
+
+    <details class="feed-settings-menu"
+            data-accordion-menu-target="menu"
+            data-action="toggle->accordion-menu#closeOthers">
+      <summary class="feed-header-icon">
+        <%= image_tag "setting.png", alt: "設定" %>
+      </summary>
+
+      <div class="feed-menu feed-menu--right">
+        <%= link_to "プロフィール編集", user_path(current_user), class: "feed-menu-item" %>
+        <%= link_to "ログアウト",
+              destroy_user_session_path,
+              data: { turbo_method: :delete },
+              class: "feed-menu-item feed-menu-item--danger" %>
+      </div>
+    </details>
+  </header>

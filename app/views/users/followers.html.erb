@@ -1,9 +1,5 @@
 <div class="user-list-page">
-  <header class="user-list-header">
-    <%= link_to "←", user_path(@user), class: "user-list-back" %>
-    <h1 class="user-list-title">Followers</h1>
-    <span class="user-list-header-placeholder"></span>
-  </header>
+  <%= render "user_list_header", user: @user, title: "Followers" %>
 
   <%= render "user_list", users: @users %>
 </div>

@@ -1,0 +1,17 @@
+<div class="feed-post-actions">
+  <%= render "likes/like_button", post: post %>
+
+  <%= link_to comment_path, class: "feed-action-link feed-action-link--comment" do %>
+    <%= image_tag "Vector.png", alt: "コメント" %>
+  <% end %>
+
+  <% share_text = "#{post.content}\n#Photogram" %>
+  <% share_url = post_url(post) %>
+
+  <%= link_to "https://twitter.com/intent/tweet?text=#{CGI.escape(share_text)}&url=#{CGI.escape(share_url)}",
+        target: "_blank",
+        rel: "noopener",
+        class: "feed-action-link feed-action-link--share" do %>
+    <%= image_tag "share.png", alt: "シェア" %>
+  <% end %>
+</div>

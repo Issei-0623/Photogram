@@ -1,0 +1,90 @@
+.profile-page {
+  min-height: 100vh;
+  background: #f3f3f3;
+  padding: 0 16px 32px;
+}
+
+.profile-header {
+  display: grid;
+  grid-template-columns: 40px 1fr auto;
+  align-items: start;
+  padding: 16px 0 24px;
+}
+
+.profile-back {
+  color: #333;
+  text-decoration: none;
+  font-size: 28px;
+  line-height: 1;
+}
+
+.profile-header-center {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-header-name {
+  margin: 0;
+  text-align: center;
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.profile-header-form {
+  display: flex;
+  justify-content: center;
+}
+
+.profile-header-name-menu {
+  text-align: center;
+}
+
+.profile-header-name-menu summary {
+  list-style: none;
+}
+
+.profile-header-name-menu summary::-webkit-details-marker {
+  display: none;
+}
+
+.profile-header-name--editable {
+  cursor: pointer;
+}
+
+.profile-header-name-edit {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+}
+
+.profile-header-action {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.profile-header-action form {
+  margin: 0;
+}
+
+.profile-header-placeholder {
+  display: inline-block;
+  width: 72px;
+  height: 32px;
+}
+
+.profile-follow-button {
+  border: none;
+  background: none;
+  color: #4a90e2;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+}
+
+.profile-follow-button--active {
+  color: #e53935
+}

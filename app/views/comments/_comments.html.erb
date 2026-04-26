@@ -2,15 +2,10 @@
   <% comments.each do |comment| %>
     <div class="comment-item">
       <%= link_to user_path(comment.user), class: "comment-avatar-link" do %>
-        <% if comment.user.avatar.attached? %>
-          <%= image_tag comment.user.avatar.variant(resize_to_fill: [80, 80]),
-                alt: comment.user.account_name,
-                class: "comment-avatar" %>
-        <% else %>
-          <%= image_tag "default_avatar.png",
-                alt: comment.user.account_name,
-                class: "comment-avatar" %>
-        <% end %>
+        <%= render "commons/avatar",
+              user: comment.user,
+              class_name: "comment-avatar",
+              size: [80, 80] %>
       <% end %>
 
       <div class="comment-body">

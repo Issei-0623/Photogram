@@ -1,32 +1,28 @@
-<div class="auth-page">
-  <%= image_tag "devise-photo.jpg", class: "auth-image" %>
+<%= render layout: "devise/shared/auth_layout" do %>
+  <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "auth-form" }) do |f| %>
+    <div class="auth-field">
+      <%= f.label :email, class: "auth-label" %>
+      <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "auth-input" %>
+    </div>
 
-  <div class="auth-body">
-    <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "auth-form" }) do |f| %>
-      <div class="auth-field">
-        <%= f.label :email, class: "auth-label" %>
-        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "auth-input" %>
-      </div>
+    <div class="auth-field">
+      <%= f.label :password, class: "auth-label" %>
+      <%= f.password_field :password, autocomplete: "current-password", class: "auth-input" %>
+    </div>
 
-      <div class="auth-field">
-        <%= f.label :password, class: "auth-label" %>
-        <%= f.password_field :password, autocomplete: "current-password", class: "auth-input" %>
-      </div>
-
-      <% if devise_mapping.rememberable? %>
-        <div class="auth-remember">
-          <%= f.check_box :remember_me %>
-          <%= f.label :remember_me %>
-        </div>
-      <% end %>
-
-      <div class="auth-links">
-        <%= render "devise/shared/links" %>
-      </div>
-
-      <div class="auth-actions">
-        <%= f.submit "LOG IN", class: "auth-button" %>
+    <% if devise_mapping.rememberable? %>
+      <div class="auth-remember">
+        <%= f.check_box :remember_me %>
+        <%= f.label :remember_me %>
       </div>
     <% end %>
-  </div>
-</div>
+
+    <div class="auth-links">
+      <%= render "devise/shared/links" %>
+    </div>
+
+    <div class="auth-actions">
+      <%= f.submit "LOG IN", class: "auth-button" %>
+    </div>
+  <% end %>
+<% end %>

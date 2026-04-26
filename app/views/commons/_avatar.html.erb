@@ -1,7 +1,10 @@
+<% avatar_class = local_assigns.fetch(:class_name, "profile-avatar") %>
+<% avatar_size = local_assigns.fetch(:size, [80, 80]) %>
+<% image_options = { alt: user.account_name } %>
+<% image_options[:class] = avatar_class if avatar_class.present? %>
+
 <% if user.avatar.attached? %>
-  <%= image_tag user.avatar.variant(resize_to_fill: [50, 50]).processed,
-      class: "profile-avatar" %>
+  <%= image_tag user.avatar.variant(resize_to_fill: avatar_size).processed, image_options %>
 <% else %>
-  <%= image_tag "default_avatar.png",
-      class: "profile-avatar" %>
+  <%= image_tag "default_avatar.png", image_options %>
 <% end %>

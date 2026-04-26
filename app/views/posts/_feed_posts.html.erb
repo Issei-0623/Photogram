@@ -1,0 +1,44 @@
+<main class="feed-posts">
+  <% if timeline %>
+    <% if current_user.followings.any? %>
+      <% if popular_posts.any? %>
+        <section class="feed-section">
+          <h2 class="feed-section-title">人気投稿</h2>
+
+          <% popular_posts.each do |post| %>
+            <%= render "commons/post", post: post %>
+          <% end %>
+        </section>
+      <% end %>
+
+      <section class="feed-section">
+        <h2 class="feed-section-title">タイムライン</h2>
+
+        <% if posts.any? %>
+          <% posts.each do |post| %>
+            <%= render "commons/post", post: post %>
+          <% end %>
+        <% else %>
+          <div class="feed-empty">
+            <p>フォロー中ユーザーの投稿はまだありません。</p>
+          </div>
+        <% end %>
+      </section>
+    <% else %>
+      <div class="feed-empty">
+        <p>フォローしているユーザーがいません。</p>
+        <p>ユーザーをフォローすると投稿が表示されます。</p>
+      </div>
+    <% end %>
+  <% else %>
+    <% if recent_posts.any? %>
+      <% recent_posts.each do |post| %>
+        <%= render "commons/post", post: post %>
+      <% end %>
+    <% else %>
+      <div class="feed-empty">
+        <p>投稿はまだありません。</p>
+      </div>
+    <% end %>
+  <% end %>
+</main>

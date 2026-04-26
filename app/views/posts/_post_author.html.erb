@@ -1,0 +1,13 @@
+<div class="feed-post-header">
+  <%= link_to user_path(user), class: "feed-post-avatar-link" do %>
+    <%= render "commons/avatar",
+          user: user,
+          class_name: "feed-post-avatar",
+          size: [80, 80] %>
+  <% end %>
+
+  <div class="feed-post-user">
+    <%= link_to user.account_name, user_path(user), class: "feed-post-user-name" %>
+    <p class="feed-post-time"><%= post.created_at.strftime("%Y/%m/%d %H:%M") %></p>
+  </div>
+</div>

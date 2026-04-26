@@ -1,0 +1,22 @@
+.follow-stats {
+  display: flex;
+  gap: 24px;
+  margin-top: 16px;
+}
+
+.follow-stats-link {
+  display: inline-flex;
+  flex-direction: column;
+  text-decoration: none;
+  color: inherit;
+}
+
+.follow-count {
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.follow-label {
+  font-size: 14px;
+  color: #666;
+}

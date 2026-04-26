@@ -4,11 +4,11 @@
       <div class="user-list-item">
         <%= link_to user_path(user), class: "user-list-link" do %>
           <div class="user-list-avatar">
-            <% if user.avatar.attached? %>
-              <%= image_tag user.avatar, alt: user.account_name %>
-            <% else %>
-              <%= image_tag "default_avatar.png", alt: user.account_name %>
-            <% end %>
+            <%= render "commons/avatar",
+              user: user,
+              class_name: nil,
+              size: [80, 80] %>
+
           </div>
 
           <div class="user-list-info">

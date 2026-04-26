@@ -1,0 +1,45 @@
+<%= form_with model: user, url: user_path(user), method: :patch, local: true, html: { class: "profile-edit-form", data: { controller: "avatar" } } do |f| %>
+  <details class="profile-avatar-menu">
+    <summary class="profile-avatar-summary">
+      <% if user.avatar.attached? %>
+        <%= image_tag user.avatar.variant(resize_to_fill: [120, 120]),
+              class: "profile-avatar",
+              data: {
+                avatar_target: "preview",
+                default_avatar_url: asset_path("default_avatar.png")
+              } %>
+      <% else %>
+        <%= image_tag "default_avatar.png",
+              class: "profile-avatar",
+              data: {
+                avatar_target: "preview",
+                default_avatar_url: asset_path("default_avatar.png")
+              } %>
+      <% end %>
+    </summary>
+
+    <div class="profile-avatar-actions">
+      <%= f.file_field :avatar,
+            id: "avatar_input",
+            class: "profile-avatar-input",
+            data: {
+              avatar_target: "input",
+              action: "change->avatar#preview"
+            } %>
+
+      <%= hidden_field_tag :remove_avatar, "0", data: { avatar_target: "removeFlag" } %>
+
+      <%= label_tag "avatar_input", "画像を変更", class: "profile-avatar-action" %>
+
+      <p data-avatar-target="fileName" class="profile-file-name"></p>
+
+      <%= f.submit "画像を保存", class: "profile-avatar-action" %>
+
+      <button type="button"
+              class="profile-avatar-action profile-avatar-action--danger"
+              data-action="click->avatar#reset">
+        画像を削除
+      </button>
+    </div>
+  </details>
+<% end %>
