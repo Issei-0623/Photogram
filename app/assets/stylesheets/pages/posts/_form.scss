@@ -87,12 +87,16 @@
 }
 
 .status-file-input {
-  display: none;
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .status-album-button {
-  appearance: none;
   display: inline-block;
+  appearance: none;
   padding: 3px 9px;
   margin: 24px 0px;
   border: 1px solid #ddd;
