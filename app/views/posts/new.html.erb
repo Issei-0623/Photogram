@@ -4,6 +4,7 @@
         class: "status-form",
         data: {
           controller: "post-form",
+          post_form_direct_upload_url_value: rails_direct_uploads_url,
           turbo: false
         }
       } do |f| %>
@@ -49,20 +50,25 @@
     </div>
 
     <div class="status-album">
-      <%= f.file_field :images,
-        multiple: true,
-        direct_upload: true,
-        id: "post_images",
-        class: "status-file-input",
-        data: {
-          post_form_target: "images",
-          action: "change->post-form#selectImages"
-        } %>
+      <%= file_field_tag :post_images,
+            multiple: true,
+            id: "post_images",
+            name: nil,
+            accept: "image/*",
+            class: "status-file-input",
+            data: {
+              post_form_target: "images",
+              action: "change->post-form#selectImages"
+            } %>
 
-
-      <%= label_tag "post_images", class: "status-album-button" do %>
+      <button
+        type="button"
+        class="status-album-button"
+        data-action="click->post-form#openFilePicker">
         + Album
-      <% end %>
+      </button>
+
+      <div data-post-form-target="uploads"></div>
 
       <p class="status-file-name" data-post-form-target="fileName"></p>
     </div>
