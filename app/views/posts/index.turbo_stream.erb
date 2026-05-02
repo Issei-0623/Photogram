@@ -1,0 +1,12 @@
+<%= turbo_stream.append "feed_posts" do %>
+  <%= render "post_items",
+        posts: params[:type] == "timeline" ? @posts : @recent_posts,
+        liked_post_ids: @liked_post_ids %>
+<% end %>
+
+<%= turbo_stream.replace "feed_pagination" do %>
+  <%= render "feed_pagination",
+        has_next_page: @has_next_page,
+        next_cursor: @next_cursor,
+        timeline: params[:type] == "timeline" %>
+<% end %>

@@ -6,7 +6,7 @@
     <div class="post-images-grid post-images-grid--<%= [image_count, 4].min %>">
       <% visible_images.each_with_index do |image, index| %>
         <div class="image-wrapper">
-          <%= image_tag image.variant(resize_to_fill: [600, 600]).processed %>
+          <%= image_tag image.variant(resize_to_fill: [600, 600]) %>
 
           <% if image_count > 4 && index == 3 %>
             <div class="overlay">

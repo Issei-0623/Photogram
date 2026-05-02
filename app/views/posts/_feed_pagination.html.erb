@@ -1,0 +1,15 @@
+<%= turbo_frame_tag "feed_pagination" do %>
+  <% if has_next_page && next_cursor.present? %>
+    <% pagination_params = {
+         before: next_cursor.created_at.iso8601(6),
+         before_id: next_cursor.id
+       } %>
+    <% pagination_params[:type] = "timeline" if timeline %>
+
+    <div
+      class="feed-pagination"
+      data-controller="infinite-scroll"
+      data-infinite-scroll-url-value="<%= posts_path(pagination_params) %>">
+    </div>
+  <% end %>
+<% end %>

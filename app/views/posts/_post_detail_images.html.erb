@@ -6,7 +6,7 @@
     <div class="post-detail-slider" data-post-slider-target="slider">
       <% post.images.each do |image| %>
         <div class="post-detail-slide">
-          <%= image_tag image.variant(resize_to_fill: [600, 600]).processed %>
+          <%= image_tag image.variant(resize_to_fill: [600, 600]) %>
         </div>
       <% end %>
     </div>

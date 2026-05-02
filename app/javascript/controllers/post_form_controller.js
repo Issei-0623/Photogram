@@ -8,6 +8,10 @@ export default class extends Controller {
     this.validate()
   }
 
+  openFilePicker() {
+    this.imagesTarget.click()
+  }
+
   selectImages() {
     this.touched = true
 

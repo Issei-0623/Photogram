@@ -4,7 +4,7 @@
 <% image_options[:class] = avatar_class if avatar_class.present? %>
 
 <% if user.avatar.attached? %>
-  <%= image_tag user.avatar.variant(resize_to_fill: avatar_size).processed, image_options %>
+  <%= image_tag user.avatar.variant(resize_to_fill: avatar_size), image_options %>
 <% else %>
   <%= image_tag "default_avatar.png", image_options %>
 <% end %>
