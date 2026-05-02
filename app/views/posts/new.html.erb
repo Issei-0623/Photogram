@@ -50,13 +50,15 @@
 
     <div class="status-album">
       <%= f.file_field :images,
-            multiple: true,
-            id: "post_images",
-            class: "status-file-input",
-            data: {
-              post_form_target: "images",
-              action: "change->post-form#selectImages"
-            } %>
+        multiple: true,
+        direct_upload: true,
+        id: "post_images",
+        class: "status-file-input",
+        data: {
+          post_form_target: "images",
+          action: "change->post-form#selectImages"
+        } %>
+
 
       <%= label_tag "post_images", class: "status-album-button" do %>
         + Album
