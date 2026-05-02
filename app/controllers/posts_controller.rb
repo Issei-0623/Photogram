@@ -56,7 +56,11 @@ class PostsController < ApplicationController
 
   def destroy
     @post.destroy
-    redirect_to posts_path, notice: "投稿を削除しました"
+
+    respond_to do |format|
+      format.html { redirect_to posts_path, notice: "投稿を削除しました", status: :see_other }
+      format.turbo_stream { redirect_to posts_path(format: :html), notice: "投稿を削除しました", status: :see_other }
+    end
   end
 
   private
