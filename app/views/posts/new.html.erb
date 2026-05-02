@@ -2,7 +2,10 @@
       local: true,
       html: {
         class: "status-form",
-        data: { controller: "post-form" }
+        data: {
+          controller: "post-form",
+          turbo: false
+        }
       } do |f| %>
   <div class="status-container">
     <div class="status-header">
