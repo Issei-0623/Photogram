@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  POSTS_PER_PAGE = 20
   before_action :authenticate_user!
   before_action :set_post, only: [:show, :edit, :update, :destroy]
   before_action :ensure_correct_user, only: [:edit, :update, :destroy]
@@ -7,15 +8,19 @@ class PostsController < ApplicationController
     if params[:type] == "timeline"
       following_ids = current_user.followings.ids
 
-      @posts = Post.where(user_id: following_ids).recent
+      @posts = paginated_posts(Post.where(user_id: following_ids))
 
       @popular_posts = Post.where(user_id: following_ids)
                            .created_within_24h
                            .popular
+                           .includes(:user, :likes, images_attachments: :blob, user: { avatar_attachment: :blob })
                            .limit(5)
     else
-      @recent_posts = Post.recent
+      @recent_posts = paginated_posts(Post.all)
     end
+
+    rendered_posts = params[:type] == "timeline" ? @posts + @popular_posts.to_a : @recent_posts
+    @liked_post_ids = current_user.likes.where(post_id: rendered_posts.map(&:id)).pluck(:post_id).to_set
   end
 
   def new
@@ -66,5 +71,23 @@ class PostsController < ApplicationController
 
   def post_params
     params.require(:post).permit(:content, images: [])
+  end
+
+  def paginated_posts(scope)
+    posts = scope
+            .includes(:user, :likes, images_attachments: :blob, user: { avatar_attachment: :blob })
+            .order(created_at: :desc, id: :desc)
+
+    if params[:before].present? && params[:before_id].present?
+      before_time = Time.zone.parse(params[:before])
+      before_id = params[:before_id].to_i
+      posts = posts.where("posts.created_at < ? OR (posts.created_at = ? AND posts.id < ?)", before_time, before_time, before_id)
+    end
+
+    page = posts.limit(POSTS_PER_PAGE + 1).to_a
+    @has_next_page = page.size > POSTS_PER_PAGE
+    page = page.first(POSTS_PER_PAGE)
+    @next_cursor = page.last
+    page
   end
 end

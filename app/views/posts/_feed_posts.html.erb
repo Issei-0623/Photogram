@@ -1,23 +1,23 @@
-<main class="feed-posts">
+<main class="feed-posts" id="feed_posts">
   <% if timeline %>
     <% if current_user.followings.any? %>
-      <% if popular_posts.any? %>
+      <% if params[:before].blank? && popular_posts.any? %>
         <section class="feed-section">
           <h2 class="feed-section-title">人気投稿</h2>
 
           <% popular_posts.each do |post| %>
-            <%= render "commons/post", post: post %>
+            <%= render "commons/post", post: post, liked_post_ids: liked_post_ids %>
           <% end %>
         </section>
       <% end %>
 
       <section class="feed-section">
-        <h2 class="feed-section-title">タイムライン</h2>
+        <% if params[:before].blank? %>
+          <h2 class="feed-section-title">タイムライン</h2>
+        <% end %>
 
         <% if posts.any? %>
-          <% posts.each do |post| %>
-            <%= render "commons/post", post: post %>
-          <% end %>
+          <%= render "post_items", posts: posts, liked_post_ids: liked_post_ids %>
         <% else %>
           <div class="feed-empty">
             <p>フォロー中ユーザーの投稿はまだありません。</p>
@@ -32,9 +32,7 @@
     <% end %>
   <% else %>
     <% if recent_posts.any? %>
-      <% recent_posts.each do |post| %>
-        <%= render "commons/post", post: post %>
-      <% end %>
+      <%= render "post_items", posts: recent_posts, liked_post_ids: liked_post_ids %>
     <% else %>
       <div class="feed-empty">
         <p>投稿はまだありません。</p>
@@ -42,3 +40,8 @@
     <% end %>
   <% end %>
 </main>
+
+<%= render "feed_pagination",
+      has_next_page: has_next_page,
+      next_cursor: next_cursor,
+      timeline: timeline %>
